@@ -27,7 +27,7 @@
         }
     }
 });//用于存储各种方法*/
-Vue.component('todo-item', {
+/*Vue.component('todo-item', {
     props: ['todo'],
     template: '<li>{{ todo.text }}</li>'
   })
@@ -41,4 +41,61 @@ Vue.component('todo-item', {
         { id: 2, text: '随便其它什么人吃的东西' }
       ]
     }
-  })
+  })*/
+//   var obj = {
+//    foo: 'bar'
+//   }
+  
+//   Object.freeze(obj)
+  
+//   new Vue({
+//     el: '#app',
+//     data: obj
+//   })
+/* var vm = new Vue({
+    el:'#example',
+    data:{
+        message:'Hello'
+    },
+    computed:{
+        reversedMessage: function() {
+           return this.message.split('').reverse().join('')
+        }
+    }
+})
+ */
+var vm = new Vue ({
+    el:"#demo",
+data :{
+    firstName:'Foo',
+    lastName:'Bar'
+},
+computed:{
+    fullName: {
+        get : function () {
+        return this.firstName +' '+ this.lastName
+    },
+        set : function  (newValue) {
+            var names = newValue.split(' ')
+            this.firstName = names[0]
+            this.lastName = names[names.length -1]
+        }
+} 
+}
+/* computed: {
+    fullName: {
+      // getter
+      get: function () {
+        return this.firstName + ' ' + this.lastName
+      },
+      // setter
+      set: function (newValue) {
+        var names = newValue.split(' ')
+        this.firstName = names[0]
+        this.lastName = names[names.length - 1]
+      }
+    }
+  } */
+})
+
+
