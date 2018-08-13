@@ -7,11 +7,108 @@
     <title>vue.js</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     
 </head>
 <body>
     <!-- app根容器 -->
-    <!--<div id="app"> 
+    <div id="todo-list-example">
+        <form v-on:submit.prevent="addNewTodo">
+          <label for="new-todo">Add a todo</label>
+          <input
+            v-model="newTodoText"
+            id="new-todo"
+            placeholder="E.g. Feed the cat"
+          >
+          <button>Add</button>
+        </form>
+        <ul>
+          <li
+            is="todo-item"
+            v-for="(todo, index) in todos"
+            v-bind:key="todo.id"
+            v-bind:title="todo.title"
+            v-on:remove="todos.splice(index, 1)"
+          ></li>
+        </ul>
+      </div>
+    <!-- v-for -->
+    <div id="vue-app">
+      <h1>v-for</h1>
+      <ul id="example-1">
+          <li v-for="item in items">
+            {{ item.message }}
+          </li>
+        </ul>
+      </div>
+    <!-- v-if -->
+    <!-- <div id="vue-app">
+      <h1>v-if条件</h1>
+      <button v-on:click="error = !error">Toggle Error</button>
+      <button v-on:click="success = !success">Toggle Success</button>
+     <!-- <p v-if="error">网络连接错误：404</p>
+      <p v-else-if="success">网络连接成功：200</p>  -->
+      <!-- <p v-show="error">网络连接错误：404</p>
+      <p v-show="success">网络连接成功：200</p>
+    </div> --> 
+<!-- vue-动态绑定css样式 -->
+<!-- <div id="vue-app">
+  <h1>动态 Css class</h1>
+   <h2>实例二</h2>
+   <button v-on:click="changeColor = !changeColor">changecolor</button>
+   <button v-on:click="changeLength = !changeLength">changelength</button>
+   <div v-bind:class="compClasses">
+    <span>jenny</span>
+   </div>
+   
+</div> -->
+   <!-- 计算属性compute  -->
+     <!--  <div id="vue-app">
+        <h1>computed 计算属性</h1>
+        <button v-on:click="a++">Add to A</button>
+        <button v-on:click="b++">Add to B</button>
+        <p>A - {{a}}</p>
+        <p>B - {{b}}</p>
+        <p>Age + A = {{AddtoA}}</p>
+        <p>Age + B = {{AddtoB}}</p>
+      </div> -->
+
+   <!-- 数据的双向绑定 -->
+    <!-- <div id="vue-Ppp">
+      <h1>数据的双向绑定 / input /select /textarea </h1>
+      <label>姓名：</label>
+      <input ref ="name" type="text" v-model="name">
+      <span>{{name}}</span>
+       <label>年龄：</label>
+       <input ref = "age" type="text" v-model="age">
+       <span>{{age}}</span>
+    </div>  -->
+
+    <!-- 键盘事件 -->
+   <!--  <div id="vue-app">
+      <h1>键盘 Events</h1>
+      <label>姓名：</label>
+      <input type="text" v-on:keyup.enter="logName">
+       <label>年龄：</label>
+       <input type="text" v-on:keyup.Ctrl.enter="logAge">
+    </div> -->
+    
+   <!--  <div id="event">
+      <h1>events</h1>
+      <p>my age is {{age}}</p>
+      <button v-on:click="add(1)">涨一岁</button>
+      <button v-on:click="subtract(1)">减一岁</button>
+      <button v-on:dblclick="add(10)">涨十岁</button>
+      <button v-on:dblclick="subtract(10)">减十岁</button>
+       <div id="canvans" v-on:mousemove="updatedXY">
+        {{X}} ,{{Y}}
+        <span v-on:mousemove.stop="">stop moving</span>
+       </div>
+       <a v-on:click.prevent="alert" href="http://www.baidu.com">百度一下</a>
+    </div> -->
+
+   <!--  <div id="app"> 
         <h1>{{greet('night!')}}</h1>
         <p>name:{{ name }}</p>
         <p>job:{{job}}</p>
@@ -28,15 +125,63 @@
         <p>Original message: "{{ message }}"</p>
         <p>Computed reversed message: "{{ reversedMessage }}"</p>
 </div>-->
-<div id="demo">
+<!-- <div id="demo">
     {{fullName}}
 </div>
-
-
+ -->
+ <!-- <div id="watch-example">
+    <p>
+      Ask a yes/no question:
+      <input v-model="question">
+    </p>
+    <p>{{ answer }}</p>
+  </div>
              
-  <script src="app.js"></script>
-     
+ 
 
-  
+<!-- <script>
+var watchExampleVM = new Vue({
+  el: '#watch-example',
+  data: {
+    question: '',
+    answer: 'I cannot give you an answer until you ask a question!'
+  },
+  watch: {
+    // 如果 `question` 发生改变，这个函数就会运行
+    question: function (newQuestion, oldQuestion) {
+      this.answer = 'Waiting for you to stop typing...'
+      this.debouncedGetAnswer()
+    }
+  },
+  created: function () {
+    // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+    // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+    // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+    // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+    // 请参考：https://lodash.com/docs#debounce
+    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+  },
+  methods: {
+    getAnswer: function () {
+      if (this.question.indexOf('?') === -1) {
+        this.answer = 'Questions usually contain a question mark. ;-)'
+        return
+      }
+      this.answer = 'Thinking...'
+      var vm = this
+      axios.get('https://yesno.wtf/api')
+        .then(function (response) {
+          vm.answer = _.capitalize(response.data.answer)
+        })
+        .catch(function (error) {
+          vm.answer = 'Error! Could not reach the API. ' + error
+        })
+    }
+  }
+})
+</script> 
+      -->
+
+<script src="app.js"></script>
 </body>
 </html>

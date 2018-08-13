@@ -1,4 +1,175 @@
-//实例化vue对象 
+//实例化vue对象
+Vue.component('todo-item', {
+    template: '\
+      <li>\
+        {{ title }}\
+        <button v-on:click="$emit(\'remove\')">Remove</button>\
+      </li>\
+    ',
+    props: ['title']
+  })
+  
+  new Vue({
+    el: '#todo-list-example',
+    data: {
+      newTodoText: '',
+      todos: [
+        {
+          id: 1,
+          title: 'Do the dishes',
+        },
+        {
+          id: 2,
+          title: 'Take out the trash',
+        },
+        {
+          id: 3,
+          title: 'Mow the lawn'
+        }
+      ],
+      nextTodoId: 4
+    },
+    methods: {
+      addNewTodo: function () {
+        this.todos.push({
+          id: this.nextTodoId++,
+          title: this.newTodoText
+        })
+        this.newTodoText = ''
+      }
+    }
+  })
+/* v-for */
+/* var vm = new Vue({
+    el: '#example-1',
+    data: {
+        items: [{
+                message: 'Foo'
+            },
+            {
+                message: 'Bar'
+            }
+        ]
+    },
+    methods: {
+
+    },
+    computed: {
+
+    }
+}) */
+/* v-if条件 */
+/* var vm = new Vue({
+    el:"#vue-app",
+    data:{
+        error:false,
+        success:false
+
+    },
+    methods:{
+
+    },
+    computed:{
+
+    }
+}) */
+ /* vue-动态绑定css样式 */ 
+ /* var vm = new Vue({
+     el:"#vue-app",
+     data:{
+         changeColor:false,
+         changeLength:false
+     },
+     methods: {
+         
+     },
+     computed:{
+         compClasses: function(){
+             return{
+                 changeColor:this.changeColor,
+                 changeLength:this.changeLength
+             }
+         }
+     }
+ }) */
+/* 计算属性compute */
+   /*  new Vue ({
+        el:"#vue-app",
+        data:{
+            a:0,
+            b:0,
+            age:20
+        },
+        methods:{
+        //   AddtoA:function(){
+        //         return this.a + this.age;
+        //     },
+        //     AddtoB:function(){
+        //         return this.b + this.age;
+        //     } 
+        },
+        computed:{
+            AddtoA:function(){
+                console.log("add to a");
+                return this.a + this.age;
+            },
+            AddtoB:function(){
+                console.log("add to b");
+                return this.b + this.age;
+            }
+        }
+    }) */
+/*  键盘事件 */
+/* 数据的双向绑定 */
+  /*var vm = new Vue({
+        el:"#vue-app",
+        data:{
+            name:"hello",
+            age:""
+        },
+        methods:{
+            logName:function(){
+                // console.log("你正在输入名字！");
+                // this.name = this.$refs.name.value; 
+            },
+            logAge:function(){
+                // console.log("你正在输入年龄！");
+                // this.age = this.$refs.age.value; 
+            }
+
+        }
+    })  */
+    /* 鼠标点击事件 */
+/* var vm =  new Vue({
+    el:"#event",
+    data:{
+        age:30,
+        X:0,
+        Y:0
+    },
+    methods:{
+        add:function(inc){
+            this.age += inc;
+
+        },
+        subtract:function(dec){
+            this.age -= dec;
+        },
+        updatedXY: function(event){
+            this.X = event.offsetX;
+            this.Y = event.offsetY;
+        },
+        alert:function(){
+           alert("hello World1!");
+        },
+       /*  stop:function (event) {
+            event.stopPropagation();
+
+          } */
+ //   }
+    
+// }) */
+
  /*new Vue({
     el:"vue-app",//需要获取的元素
     data:{
@@ -27,6 +198,7 @@
         }
     }
 });//用于存储各种方法*/
+
 /*Vue.component('todo-item', {
     props: ['todo'],
     template: '<li>{{ todo.text }}</li>'
@@ -64,7 +236,7 @@
     }
 })
  */
-var vm = new Vue ({
+/* var vm = new Vue ({
     el:"#demo",
 data :{
     firstName:'Foo',
@@ -96,6 +268,4 @@ computed:{
       }
     }
   } */
-})
-
-
+//})

@@ -1,0 +1,23 @@
+#canvans{   
+        width: 600px;
+        padding: 200px 20px;
+        text-align: center;
+        border: 1px soild red;
+        background-color: rgb(167, 116, 116);
+}
+span{
+        background-color: red;
+        display: inline-block;
+        padding: 10px;
+        color: #fff;
+        margin-left: 10px 0;
+}
+.changeColor span{
+        background-color:green;
+
+}
+.changeLength span:after{
+        content: "length";
+        margin-left: 10px;
+        
+}
